@@ -1,8 +1,9 @@
 /* @flow */
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
+import PropTypes from 'prop-types';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }: string) => {
+const Input = ( {label, value, onChangeText, placeholder, secureTextEntry }: Object) => {
 
     const { viewStyle,textInputStyle,labelStyle } = styles;
 
@@ -50,5 +51,13 @@ const styles = {
     flex: 2
   }
 };
+
+Input.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string,
+  onChangeText: PropTypes.string,
+  placeholder: PropTypes.string,
+  secureTextEntry: PropTypes.string
+}
 
 export { Input };

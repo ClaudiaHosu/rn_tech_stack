@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 
 //Make a Component
 
-const Header = (props: {headerText: String}) => {
+const Header = (props: {headerText: string}) => {
   const { textStyle, viewStyle } = styles;
 
   return (

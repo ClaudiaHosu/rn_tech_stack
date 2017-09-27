@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ListItem from './ListItem';
 
+
 class LibraryList extends Component {
 
   componentWillMount() {
@@ -36,6 +37,6 @@ const mapStateToProps = state => {
 
 LibraryList.propTypes = {
   libraries: PropTypes.array
-}
+};
 
 export default connect(mapStateToProps)(LibraryList);
