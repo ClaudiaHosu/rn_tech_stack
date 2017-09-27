@@ -1,30 +1,77 @@
+/*@flow*/
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import {
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  LayoutAnimation
+} from 'react-native';
 import { CardSection } from './common';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class ListItem extends Component {
-  render() {
 
+  componentWillUpdate() {
+    LayoutAnimation.spring();
+  }
+
+  renderDescription() {
+
+    const {library, expanded} = this.props;
+
+    if (expanded) {
+      return (
+        <CardSection>
+          <Text style={styles.descriptionStyle}>{library.description}</Text>
+        </CardSection>
+      );
+    }
+  }
+
+  render() {
     const { titleStyle } = styles;
+    const { id, title } = this.props.library;
 
     return (
-      <CardSection>
-        <Text style={titleStyle}>{this.props.library.title}</Text>
-      </CardSection>
+      <TouchableWithoutFeedback
+        onPress={() => this.props.selectLibrary(id)}
+      >
+        <View>
+          <CardSection>
+            <Text style={titleStyle}>
+              {title}
+            </Text>
+          </CardSection>
+          {this.renderDescription()}
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
 
 const styles = {
+
+  descriptionStyle: {
+    flex: 1
+  },
+
   titleStyle: {
     fontSize: 18,
     paddingLeft: 15
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  const expanded = state.selectedLibraryId === ownProps.library.id;
+  return { expanded };
+};
+
 ListItem.propTypes = {
-  library: PropTypes.object
+  library: PropTypes.object,
+  selectLibrary: PropTypes.func,
+  expanded: PropTypes.bool
 }
 
-export default ListItem;
+export default connect(mapStateToProps, actions)(ListItem);
